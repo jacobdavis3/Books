@@ -1,0 +1,133 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header h1 {
+  margin: 24px 0;
+}
+
+button {
+  font: inherit;
+  border: 1px solid var(--accent-border);
+  background: var(--accent-bg);
+  color: var(--text-h);
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.scanner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.scanner-video {
+  width: 100%;
+  border-radius: 12px;
+  background: black;
+}
+
+.scanner-error {
+  color: #e34c4c;
+}
+
+.scanner-hint {
+  font-size: 14px;
+  color: var(--text);
+}
+
+.manual-entry {
+  display: flex;
+  gap: 8px;
+}
+
+.manual-entry input {
+  flex: 1;
+  font: inherit;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-h);
+}
+
+.status {
+  font-size: 14px;
+}
+
+.shelf {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.book-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  position: relative;
+}
+
+.book-card img {
+  width: 48px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.book-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.book-info h3 {
+  margin: 0 0 4px;
+  font-size: 16px;
+  color: var(--text-h);
+}
+
+.book-info p {
+  font-size: 14px;
+  margin: 0 0 2px;
+}
+
+.book-info .year {
+  color: var(--text);
+}
+
+.remove {
+  border: none;
+  background: none;
+  font-size: 20px;
+  line-height: 1;
+  padding: 4px 8px;
+  color: var(--text);
+}
+
+.empty {
+  color: var(--text);
+  font-size: 14px;
+}
