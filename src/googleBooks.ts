@@ -28,5 +28,6 @@ export async function lookupByIsbn(isbn: string): Promise<Book> {
     thumbnail: info.imageLinks?.thumbnail,
     publishedDate: info.publishedDate,
     addedAt: new Date().toISOString(),
+    status: 'out',
   }
 }

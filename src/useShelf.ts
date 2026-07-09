@@ -29,5 +29,14 @@ export function useShelf() {
     setBooks((prev) => prev.filter((b) => b.isbn !== isbn))
   }, [])
 
-  return { books, addBook, removeBook }
+  const updateBook = useCallback(
+    (isbn: string, patch: Partial<Pick<Book, 'library' | 'dueDate' | 'status'>>) => {
+      setBooks((prev) =>
+        prev.map((b) => (b.isbn === isbn ? { ...b, ...patch } : b))
+      )
+    },
+    []
+  )
+
+  return { books, addBook, removeBook, updateBook }
 }
