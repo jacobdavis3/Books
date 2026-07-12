@@ -44,7 +44,7 @@ function sortByDueDate(books: Book[]): Book[] {
 type Tab = 'add' | 'books'
 
 function App() {
-  const { books, addBook, updateBook } = useShelf()
+  const { books, addBook, removeBook, updateBook } = useShelf()
   const [tab, setTab] = useState<Tab>('add')
   const [scanning, setScanning] = useState(false)
   const [manualIsbn, setManualIsbn] = useState('')
@@ -53,6 +53,7 @@ function App() {
   const [confirmingReturn, setConfirmingReturn] = useState<string | null>(null)
   const [pendingBook, setPendingBook] = useState<Book | null>(null)
   const [editingIsbn, setEditingIsbn] = useState<string | null>(null)
+  const [confirmingDelete, setConfirmingDelete] = useState<string | null>(null)
 
   const checkedOut = useMemo(
     () => sortByDueDate(books.filter((b) => b.status !== 'returned')),
@@ -93,7 +94,9 @@ function App() {
   return (
     <div className="app">
       <header>
-        <h1>Jacob's Books</h1>
+        <h1>
+          <span className="title-gradient">Jacob's Books</span>
+        </h1>
       </header>
 
       <nav className="tabs">
@@ -287,21 +290,50 @@ function App() {
             <details className="returned-section">
               <summary>Returned ({returned.length})</summary>
               <ul className="shelf returned-list">
-                {returned.map((book) => (
-                  <li key={book.isbn} className="book-card returned">
-                    {book.thumbnail && <img src={book.thumbnail} alt="" />}
-                    <div className="book-info">
-                      <h3>{book.title}</h3>
-                      <p>{book.library ?? 'Unknown library'}</p>
-                    </div>
-                    <button
-                      className="undo-return"
-                      onClick={() => updateBook(book.isbn, { status: 'out' })}
-                    >
-                      Undo
-                    </button>
-                  </li>
-                ))}
+                {returned.map((book) => {
+                  const confirmingDeleteThis = confirmingDelete === book.isbn
+                  return (
+                    <li key={book.isbn} className="book-card returned">
+                      {book.thumbnail && <img src={book.thumbnail} alt="" />}
+                      <div className="book-info">
+                        <h3>{book.title}</h3>
+                        <p>{book.library ?? 'Unknown library'}</p>
+                      </div>
+                      {confirmingDeleteThis ? (
+                        <div className="return-confirm">
+                          <span>Delete for good?</span>
+                          <button
+                            className="confirm-yes delete-yes"
+                            onClick={() => {
+                              removeBook(book.isbn)
+                              setConfirmingDelete(null)
+                            }}
+                          >
+                            Yes
+                          </button>
+                          <button className="confirm-no" onClick={() => setConfirmingDelete(null)}>
+                            No
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="returned-actions">
+                          <button
+                            className="undo-return"
+                            onClick={() => updateBook(book.isbn, { status: 'out' })}
+                          >
+                            Undo
+                          </button>
+                          <button
+                            className="delete-button"
+                            onClick={() => setConfirmingDelete(book.isbn)}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      )}
+                    </li>
+                  )
+                })}
               </ul>
             </details>
           )}
