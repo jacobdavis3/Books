@@ -1,0 +1,16 @@
+{
+  "borrow.nypl.org": {
+    "working": [
+      "na2.iiivega.com",
+      "nypl.na2.iiivega.com",
+      1
+    ]
+  },
+  "catalog.dclibrary.org": {
+    "working": [
+      "na5.iiivega.com",
+      "dcpl.na5.iiivega.com",
+      1
+    ]
+  }
+}
